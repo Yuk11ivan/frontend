@@ -1,4 +1,5 @@
 import axios from 'axios'
+import axiosRetry from 'axios-retry'
 
 // 创建axios实例
 const api = axios.create({
@@ -6,6 +7,19 @@ const api = axios.create({
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json'
+  }
+})
+
+// 配置请求重试策略
+axiosRetry(api, {
+  retries: 3, // 最大重试次数为3次
+  retryDelay: (retryCount) => {
+    // 指数退避策略，每次重试的延迟时间为2的retryCount次方秒
+    return Math.pow(2, retryCount) * 1000
+  },
+  retryCondition: (error) => {
+    // 仅在网络错误、请求超时或服务器错误（5xx状态码）时重试
+    return (axiosRetry.isNetworkOrIdempotentRequestError(error) || error.response?.status >= 500) && error.response?.status !== 501 // 排除501 Not Implemented
   }
 })
 
