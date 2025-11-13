@@ -13,9 +13,11 @@ node_modules
 .pnp.js
 
 # Build output
-dist
 dist-ssr
 *.local
+.jekyll-cache
+_site
+vendor
 
 # Editor directories and files
 .vscode/*

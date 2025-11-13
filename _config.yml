@@ -1,0 +1,16 @@
+# Jekyll Configuration
+layout: default
+title: Book Borrowing System
+description: A simple book borrowing system
+baseurl: "/frontend"
+url: "https://yuk11ivan.github.io"
+
+# Build settings
+destination: docs
+permalink: pretty
+encoding: UTF-8
+
+# Plugins
+gems:
+  - jekyll-sitemap
+  - jekyll-seo-tag
